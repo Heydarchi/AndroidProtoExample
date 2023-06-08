@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.protoexample"
-        minSdk 29
+        minSdk 28
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -35,31 +35,31 @@ android {
         viewBinding true
     }
 
-    sourceSets {
+    /*sourceSets {
         main {
             proto {
                 srcDir "src/main/proto"
             }
         }
-    }
-//
+    }*/
+
 }
 
 protobuf {
     protoc {
         artifact = 'com.google.protobuf:protoc:3.8.0'
     }
-    plugins {
+    /*plugins {
         javalite {
             artifact = 'com.google.protobuf:protoc-gen-java:3.21.12'
         }
 
-    }
+    }*/
     generateProtoTasks {
         all().each { task ->
             task.builtins {
                 java {
-                    option "lite"
+                    //option "lite"
                 }
             }
         }
@@ -67,7 +67,8 @@ protobuf {
 }
 
 dependencies {
-    implementation 'com.google.protobuf:protobuf-lite:3.0.1'
+    //implementation 'com.google.protobuf:protobuf-lite:3.0.0'
+    implementation 'com.google.protobuf:protobuf-java:3.23.2'
 
     implementation 'androidx.core:core-ktx:1.10.1'
     implementation 'androidx.appcompat:appcompat:1.6.1'
