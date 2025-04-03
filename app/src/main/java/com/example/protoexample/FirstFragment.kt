@@ -50,17 +50,27 @@ class FirstFragment : Fragment() {
             )
         }
 
-        binding.storeCustomMessage.setOnClickListener {
-            Log.v(TAG, loadCustomMessage().toString())
+        binding.loadCustomMessage.setOnClickListener {
+            val customMessage = loadCustomMessage()
+
+            val byteArray = customMessage.toByteArray()
+            val hexString = byteArray.joinToString(" ") { "%02X".format(it) }
+            Log.d("TAG", "CustomMessage as ByteArray (hex): $hexString")
+
+            Log.v(TAG, customMessage.toString())
         }
 
     }
 
     private fun saveCustomMessage(customMessage: CustomMessage){
+        val byteArray = customMessage.toByteArray()
+        val hexString = byteArray.joinToString(" ") { "%02X".format(it) }
+        Log.d("TAG", "CustomMessage as ByteArray (hex): $hexString")
+
+        Log.v(TAG,"Custom message saved: $customMessage")
         val file = File(context?.filesDir, "custom_message.tmp")
         file.writeText(customMessage.toByteArray().toString(Charsets.UTF_8))
 
-        Log.v(TAG,"Custom message saved: $customMessage")
     }
 
     private fun loadCustomMessage(): CustomMessage {
@@ -73,7 +83,6 @@ class FirstFragment : Fragment() {
         }
         val bytes = file.readText(Charsets.UTF_8).toByteArray()
         val customMessage = CustomMessage.parseFrom(bytes)
-        Log.v(TAG,"Custom message loaded: $customMessage")
         return customMessage
     }
 
