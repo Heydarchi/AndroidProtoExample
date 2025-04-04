@@ -69,19 +69,41 @@ class FirstFragment : Fragment() {
 
         Log.v(TAG,"Custom message saved: $customMessage")
         val file = File(context?.filesDir, "custom_message.tmp")
+        val fileBinary = File(context?.filesDir, "custom_message_binary.tmp")
+
+        // Write as string to file
         file.writeText(customMessage.toByteArray().toString(Charsets.UTF_8))
+
+        // Write as binary stream to file
+        fileBinary.writeBytes(customMessage.toByteArray())
+
 
     }
 
     private fun loadCustomMessage(): CustomMessage {
         // Load the custom message from a temp file
 
+        //Read as a string and convert it to bytes then parse it
         val file = File(context?.filesDir, "custom_message.tmp")
         if (!file.exists()) {
             Log.v(TAG,"No custom message found")
             return CustomMessage.getDefaultInstance()
         }
-        val bytes = file.readText(Charsets.UTF_8).toByteArray()
+        val bytes_1 = file.readText(Charsets.UTF_8).toByteArray()
+        val customMessage_1 = CustomMessage.parseFrom(bytes_1)
+        val byteArray = customMessage_1.toByteArray()
+        val hexString = byteArray.joinToString(" ") { "%02X".format(it) }
+        Log.d("TAG", "CustomMessage as ByteArray (hex): $hexString")
+        Log.v(TAG, "customMessage_1: $customMessage_1}")
+
+
+        //Read as binary, parse and return it
+        val fileBinary = File(context?.filesDir, "custom_message_binary.tmp")
+        if (!fileBinary.exists()) {
+            Log.v(TAG,"No custom message found")
+            return CustomMessage.getDefaultInstance()
+        }
+        val bytes = fileBinary.readBytes()
         val customMessage = CustomMessage.parseFrom(bytes)
         return customMessage
     }
