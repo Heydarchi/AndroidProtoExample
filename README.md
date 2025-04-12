@@ -1,4 +1,9 @@
 # AndroidProtoExample
-An example of using protobuf in an Android application
+An example of using protobuf in an Android application to serialize and deserialize data.
+In this project, Android plugin will be used to generate source code from the defined protobuf file.
 
-## Atention: This is not completed yet. But it can be used as a sample to know how to config
+## YouTube
+
+Here, you can find a YouTube video explaining Protobuf and this project as well:
+
+[![Quick Practical Introduction to Protobuf: File → Code → Android & C++ Examples](https://img.youtube.com/vi/R9yPMnCbpJY/maxresdefault.jpg)](https://youtu.be/R9yPMnCbpJY)
